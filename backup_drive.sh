@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #rsync parameters
-src=/media/pi/seagate_2tb
-dest=/media/pi/seagate_2tb_backup
+src=/media/pi/wd_nas_4tb
+dest=/media/pi/wd_nas_4tb_backup
 
 #email parameters
 sender=kimfamilydesktop26@gmail.com
@@ -29,9 +29,11 @@ echo "Backup Summary" > $log
 echo "Start Time: $(date -d @$start_epoch)" >> $log
 echo "End Time: $(date -d @$end_epoch)" >> $log
 echo "Duration: ${hours}h ${minutes}m ${seconds}s" >> $log
-echo "=========================RSYNC SUMMARY=========================" >> $log
+echo "SYSTEM DISK USAGE==============================================" >> $log
+df >> $log
+echo "RSYNC SUMMARY==================================================" >> $log
 cat rsync_log >> $log
-echo "==========================END OF LOG===========================" >> $log
+echo "END OF LOG=====================================================" >> $log
 rm rsync_log
 
 #send email
