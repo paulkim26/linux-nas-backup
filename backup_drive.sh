@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #rsync parameters
-src=/media/pi/wd_nas_4tb
-dest=/media/pi/wd_nas_4tb_backup
+src=/media/pi/<REPLACE>
+dest=/media/pi/<REPLACE>
 
 #email parameters
-sender=kimfamilydesktop26@gmail.com
-recipient=paulkim26.pk@gmail.com
+sender=<REPLACE>
+recipient=<REPLACE>
 subject="Hard Drive Backup Summary"
 
 #backup files
