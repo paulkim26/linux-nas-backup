@@ -6,12 +6,13 @@ A backup script for a Linux based NAS server to:
 2. Send an email notification to the owner upon completion.
 
 ## Setup
-This script has been written for use with the following configuration:
+This script has been written for use with the following NAS server configuration:
 - 1x Raspberry Pi 3 running Raspbian Pi OS (the NAS server)
 - 1x Primary External Hard Drive
 - 1x Secondary External Hard Drive (of equal or greater capacity to the primary drive)
 - A Windows client computer to connect to the NAS
 - The [Samba](https://www.samba.org/) SMB networking protocol to provide file sharing for windows systems
+- The [msmtp](https://marlam.de/msmtp/) SMTP client to send email notifications
 
 ### Preparing the hard drives
 1. Format the 2 hard drives using the `NTFS` file system.
@@ -82,7 +83,7 @@ Sources:
 - https://afreshcloud.com/sysadmin/send-server-reports-by-email-with-msmtp-and-gmail-smtp
 
 17. Prepare an email account to use as the sender for the automatic notifications.
-Note: Gmail accounts should have the `Allow less secure apps: ` toggle set to `ON`. Otherwise, the process will complain that the username and password were not accepted during the authentication process. See: https://myaccount.google.com/lesssecureapps
+Note: Gmail accounts should have the `Allow less secure apps` toggle set to `ON`. Otherwise, the process will complain that the username and password were not accepted during the authentication process (see: https://myaccount.google.com/lesssecureapps).
 
 18. Install the `msmtp` package.
 ```
@@ -123,23 +124,21 @@ Execute the `backup_drive.sh` script to perform the backup process. The executio
 
 ## Reference
 
-### Useful Mounting Commands
+### Mounting Drives
 | Command | Description |
 | - | - |
 | `lsblk` | Check all mounted drives. |
 | `fdisk` | Check all mounted drives. |
-| `umount /mnt/<drive>` | Unmount a drive. |
-| `` | |
-| `` | |
-| `` | |
+| `umount /mnt/<drive>` | Unmount a drive. 
 
 ### Test MSMTP Commands
 
+Send an email with a body to a recipient.
 ```
 echo "Hello this is sending email using msmtp" | msmtp recipent@domain.com
 ```
 
-Specifies a configuration (gmail)
+Send an email with a body to a recipient while specification a configuration (gmail):
 ```
 echo "Hello this is sending email using msmtp" | msmtp -a gmail recipent@domain.com
 ```
@@ -154,7 +153,7 @@ Send a complete email:
 printf "To: @domain.comnFrom: @gmail.comnSubject: Email Test Using MSMTPnnHello there. This is email test from MSMTP." | msmtp recipient@domain.com
 ```
 
-Send a complete email from a saved text file.
+Send a complete email from a saved text file:
 ```
 cat email.txt | msmtp -a default recipient@domain.com
 ```
